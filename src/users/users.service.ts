@@ -2,11 +2,9 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
 import { User } from './user.entity';
 import { LoginUserDto } from './dtos/login-user.dto';
-import { UserRole } from './user-roles.enum';
-import * as bcrypt from 'bcrypt';
-import * as crypto from 'crypto';
 
 @Injectable()
 export class UsersService {
