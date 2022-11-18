@@ -1,3 +1,4 @@
+import { GetUserDto } from './dtos/get-user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Repository } from 'typeorm';
@@ -17,7 +18,7 @@ export class UsersService {
     return await this.userRepository.find();
   }
 
-  async findOne({ email }: LoginUserDto): Promise<User> {
+  async findOne({ email }: GetUserDto): Promise<User> {
     return await this.userRepository.findOneBy({ email });
   }
 
