@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from './user.entity';
-import { LoginUserDto } from './dtos/login-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -19,25 +18,30 @@ export class UsersService {
   }
 
   async findOne({ email }: GetUserDto): Promise<User> {
-    return await this.userRepository.findOneBy({ email });
+    const user = await this.userRepository.findOneBy({ email });
+
+    if (!user) {
+      throw new InternalServerErrorException('User not found');
+    }
+
+    return user;
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     const { email, password, passwordConfirmation } = createUserDto;
 
-    const user = this.userRepository.create();
-    user.salt = await bcrypt.genSalt();
-    user.password = await this.hashPassword(password, user.salt);
-
-    user.email = email;
-    user.password = password;
-
     if (password !== passwordConfirmation) {
       throw new Error('Password confirmation does not match password');
     }
 
+    const user = this.userRepository.create();
+    user.salt = await bcrypt.genSalt();
+    user.password = await this.hashPassword(password, user.salt);
+    user.email = email;
+
     try {
       await this.userRepository.save(user);
+
       delete user.password;
       delete user.salt;
 
