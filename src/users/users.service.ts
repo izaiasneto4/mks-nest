@@ -3,7 +3,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { User } from './user.entity';
 
 @Injectable()
