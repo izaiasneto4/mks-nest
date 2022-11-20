@@ -28,7 +28,7 @@ export class Movie {
   })
   genre: MovieGenreEnum[];
 
-  @Column({ array: true })
+  @Column('text', { array: true })
   cast: string[];
 
   @CreateDateColumn()
