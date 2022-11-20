@@ -16,13 +16,13 @@ export class User {
   @Column({ nullable: false, type: 'varchar', length: 200 })
   email: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, select: false })
   password: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, select: false })
   salt: string;
 
-  @Column({ nullable: true, type: 'varchar', length: 64 })
+  @Column({ nullable: true, type: 'varchar', length: 64, select: false })
   confirmationToken: string;
 
   @CreateDateColumn()
