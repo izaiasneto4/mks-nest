@@ -1,4 +1,10 @@
-import { IsDateString, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { MovieGenreEnum } from '../movie.types';
 
 export class CreateMovieDto {
@@ -12,11 +18,14 @@ export class CreateMovieDto {
 
   @IsString({ each: true })
   @IsEnum(MovieGenreEnum, { each: true })
+  @IsOptional()
   genre: MovieGenreEnum[];
 
   @IsString({ each: true })
+  @IsOptional()
   cast: string[];
 
   @IsDateString()
+  @IsOptional()
   releaseDate: Date;
 }

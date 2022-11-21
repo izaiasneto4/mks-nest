@@ -13,6 +13,7 @@ import {
 import { Movie } from './movie.entity';
 import { CreateMovieDto } from './dtos/create-movie.dto';
 import { UpdateMovieDto } from './dtos/update-movie.dto';
+import { GetMovieDto } from './dtos/get-movie.dto';
 
 @Controller('movies')
 export class MoviesController {
@@ -24,10 +25,10 @@ export class MoviesController {
     return await this.moviesService.getAll();
   }
 
-  @Get('/:id')
+  @Get('/view')
   @UseGuards(JwtAuthGuard)
-  async getOne(@Param() id: string): Promise<Movie> {
-    return await this.moviesService.getOne(id);
+  async getOne(@Body() getMovieDto: GetMovieDto): Promise<Movie> {
+    return await this.moviesService.getOne(getMovieDto);
   }
 
   @Post()
@@ -40,8 +41,11 @@ export class MoviesController {
 
   @Put('/:id')
   @UseGuards(JwtAuthGuard)
-  async update(@Body() updateMovieDto: UpdateMovieDto): Promise<Movie> {
-    return await this.moviesService.update(updateMovieDto);
+  async update(
+    @Body() updateMovieDto: UpdateMovieDto,
+    @Param() id: string,
+  ): Promise<Movie> {
+    return await this.moviesService.update(id, updateMovieDto);
   }
 
   @Delete('/:id')

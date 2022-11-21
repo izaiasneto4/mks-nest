@@ -2,6 +2,7 @@ import { Body, Injectable, Param, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateMovieDto } from './dtos/create-movie.dto';
+import { GetMovieDto } from './dtos/get-movie.dto';
 import { UpdateMovieDto } from './dtos/update-movie.dto';
 import { Movie } from './movie.entity';
 
@@ -16,8 +17,8 @@ export class MoviesService {
     return await this.moviesRepository.find({});
   }
 
-  async getOne(@Param() id: string) {
-    const result = await this.moviesRepository.findOneBy({ id });
+  async getOne(@Body() { movieId }: GetMovieDto) {
+    const result = await this.moviesRepository.findOneBy({ id: movieId });
 
     if (!result) {
       throw new NotFoundException('Movie not found');
@@ -30,8 +31,8 @@ export class MoviesService {
     return await this.moviesRepository.save(createMovieDto);
   }
 
-  async update(@Body() updateMovieDto: UpdateMovieDto) {
-    const movie = await this.getOne(updateMovieDto.id);
+  async update(@Param() id: string, @Body() updateMovieDto: UpdateMovieDto) {
+    const movie = await this.getOne({ movieId: id });
 
     if (!movie) {
       throw new NotFoundException('Movie not found');

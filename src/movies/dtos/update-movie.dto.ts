@@ -1,7 +1,25 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsDateString, IsEnum, IsOptional, IsString } from 'class-validator';
+import { MovieGenreEnum } from '../movie.types';
 
 export class UpdateMovieDto {
   @IsString()
-  @IsNotEmpty()
-  id: string;
+  @IsOptional()
+  title: string;
+
+  @IsString()
+  @IsOptional()
+  director: string;
+
+  @IsString({ each: true })
+  @IsEnum(MovieGenreEnum, { each: true })
+  @IsOptional()
+  genre: MovieGenreEnum[];
+
+  @IsString({ each: true })
+  @IsOptional()
+  cast: string[];
+
+  @IsDateString()
+  @IsOptional()
+  releaseDate: Date;
 }
