@@ -1,0 +1,14 @@
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  update_application:
+    name: Update feed fluent website
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run update script
+        run: /home/ubuntu/update_action.sh
+        shell: bash
