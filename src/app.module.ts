@@ -1,3 +1,4 @@
+import { DatabaseModule } from './database/database.module';
 import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -40,6 +41,7 @@ const postgresPort = parseInt(process.env.POSTGRES_PORT) || 5432;
     UsersModule,
     AuthModule,
     MoviesModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [
