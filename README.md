@@ -57,3 +57,4 @@ What could be done to better this application:
 - Add integration and end-to-end tests
 - Add a better strategy for caching with Redis
 - Solve problems of code duplication and refactor slower parts of the code
+- Add a pipeline that runs all tests and check for broken or flaky ones when merging on github
