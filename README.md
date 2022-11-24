@@ -2,8 +2,6 @@
 
 This is a "catalog of movies application" example in Nest.js built with:
 
-Link to the live application:
-
 ### Features
 
 - Nest.js
