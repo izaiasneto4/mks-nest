@@ -7,7 +7,7 @@ import { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MockType, repositoryMockFactory } from './fixtures';
+import { MockType, userRepositoryMockFactory } from './test';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -24,7 +24,7 @@ describe('UsersService', () => {
         UsersService,
         {
           provide: getRepositoryToken(User),
-          useFactory: repositoryMockFactory,
+          useFactory: userRepositoryMockFactory,
         },
         {
           provide: 'Bcrypt',

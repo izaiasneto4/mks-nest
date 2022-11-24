@@ -5,6 +5,7 @@ import { CreateMovieDto } from './dtos/create-movie.dto';
 import { GetMovieDto } from './dtos/get-movie.dto';
 import { UpdateMovieDto } from './dtos/update-movie.dto';
 import { Movie } from './movie.entity';
+import { DeleteResult } from 'typeorm';
 
 @Injectable()
 export class MoviesService {
@@ -44,7 +45,7 @@ export class MoviesService {
   }
 
   async remove(@Param() id: string) {
-    const result = await this.moviesRepository.delete(id);
+    const result: DeleteResult = await this.moviesRepository.delete(id);
 
     if (result.affected === 0) {
       throw new NotFoundException('Movie not found');
