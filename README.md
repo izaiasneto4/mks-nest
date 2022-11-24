@@ -1,73 +1,60 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+## Nest movies application
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This is a "catalog of movies application" example in Nest.js built with:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Link to the live application:
 
-## Description
+### Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Nest.js
+- Redis
+- Postgres
+- Typeorm
+- Node.js (16+)
+- Jest
+- Docker
+- JWT
 
-## Installation
+### Instalation
 
-```bash
-$ npm install
+Copy and modify the `.env.example` file to you own local environment variables
+
+```
+  cp .env.example .env
 ```
 
-## Running the app
+If you wish to run the application locally, you can just run it through docker. The whole application can run through docker, including Nest itself.
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```
+  docker-compose up -d
 ```
 
-## Test
+### API guide
 
-```bash
-# unit tests
-$ npm run test
+A showcase of all available endpoints can be acessed in the `/api` route in your url application.
 
-# e2e tests
-$ npm run test:e2e
+### Running tests
 
-# test coverage
-$ npm run test:cov
+If you're running the application through docker, it will be needed that you stop the application container.
+You can do so by running.
+
+```
+  docker ps
 ```
 
-## Support
+This commnad will list all of your available containers
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+  docker stop <CONTAINER-NAME>
+```
 
-## Stay in touch
+And, finally, running the tests
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+`npm test` or `npm test:cov` to see the test coverage
 
-## License
+What could be done to better this application:
 
-Nest is [MIT licensed](LICENSE).
+- Add integration and end-to-end tests
+- Add a better strategy for caching with Redis
+- Solve problems of code duplication and refactor slower parts of the code
+- Add a pipeline that runs all tests and check for broken or flaky ones when merging on github
