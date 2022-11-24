@@ -1,14 +1,22 @@
 import { GetUserDto } from './dtos/get-user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { User } from './user.entity';
 
+type BcryptType = typeof bcrypt;
+
 @Injectable()
 export class UsersService {
   constructor(
+    @Inject('Bcrypt') private readonly bcrypt: BcryptType,
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
@@ -21,7 +29,7 @@ export class UsersService {
     const user = await this.userRepository.findOneBy({ email });
 
     if (!user) {
-      throw new InternalServerErrorException('User not found');
+      throw new NotFoundException('User not found');
     }
 
     return user;
@@ -35,7 +43,7 @@ export class UsersService {
     }
 
     const user = this.userRepository.create();
-    user.salt = await bcrypt.genSalt();
+    user.salt = await this.bcrypt.genSalt();
     user.password = await this.hashPassword(password, user.salt);
     user.email = email;
 
@@ -58,6 +66,6 @@ export class UsersService {
   }
 
   private async hashPassword(password: string, salt: string): Promise<string> {
-    return bcrypt.hash(password, salt);
+    return this.bcrypt.hash(password, salt);
   }
 }
