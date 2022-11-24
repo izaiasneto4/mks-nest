@@ -5,7 +5,7 @@ on:
 
 jobs:
   update_application:
-    name: Update feed fluent website
+    name: Update aplication
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v1
