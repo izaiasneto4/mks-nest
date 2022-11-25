@@ -20,7 +20,6 @@ const postgresPort = parseInt(process.env.POSTGRES_PORT) || 5432;
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
