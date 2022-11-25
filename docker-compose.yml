@@ -1,55 +1,55 @@
 version: '3.8'
 
 services:
-    app:
-        build:
-            context: .
-            dockerfile: Dockerfile
-            target: development
-        command: npm run start:dev
-        env_file: .env
-        container_name: app
-        image: mks-api-prod:1.0.0
-        ports:
-            - 3000:3000
-            - 9229:9229
-        networks:
-            - mks-network
-        volumes:
-            - .:/usr/src/app
-            - /usr/src/app/node_modules
-        restart: unless-stopped
-        links:
-            - postgres
-            - redis
-        depends_on:
-            - postgres
-            - redis
-    postgres:
-        container_name: postgres
-        image: postgres:15-alpine
-        restart: unless-stopped
-        environment:
-            POSTGRES_USER: "${DATABASE_USER}"
-            POSTGRES_PASSWORD: "${DATABASE_PASSWORD}"
-            POSTGRES_DB: "${DATABASE_USER}"
-        networks:
-            - mks-network
-        volumes:
-            - postgres-data:/var/lib/postgresql/data
-            - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
-    redis:
-        container_name: redis
-        image: redis:7-alpine
-        restart: always
-        networks:
-            - mks-network
-        volumes:
-            - redis-data:/data
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    command: npm run start:dev
+    env_file: .env
+    container_name: app
+    image: mks-api-prod:1.0.0
+    ports:
+      - 80:3000
+      - 9229:9229
+    networks:
+      - mks-network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    links:
+      - postgres
+      - redis
+    depends_on:
+      - postgres
+      - redis
+  postgres:
+    container_name: postgres
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: '${DATABASE_USER}'
+      POSTGRES_PASSWORD: '${DATABASE_PASSWORD}'
+      POSTGRES_DB: '${DATABASE_USER}'
+    networks:
+      - mks-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+  redis:
+    container_name: redis
+    image: redis:7-alpine
+    restart: always
+    networks:
+      - mks-network
+    volumes:
+      - redis-data:/data
 
 networks:
-    mks-network:
-        driver: bridge
+  mks-network:
+    driver: bridge
 volumes:
-    postgres-data:
-    redis-data:
+  postgres-data:
+  redis-data:
