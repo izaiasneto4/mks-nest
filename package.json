@@ -1,8 +1,8 @@
 {
-  "name": "mks-nest",
+  "name": "nest-movies-api",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Izaias Neto",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
